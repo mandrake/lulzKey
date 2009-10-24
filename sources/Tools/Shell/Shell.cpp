@@ -382,7 +382,11 @@ Shell::_binary (unsigned long out)
 {
     unsigned long filter = 0x80000000;
 
-    for (int i = 0; i < 32; i++) {
+    while (!(filter & out)) {
+        filter >>= 1;
+    }
+
+    for (int i = 0; i < 32 && filter; i++) {
         if (filter & out) {
             this->print('1');
         }
